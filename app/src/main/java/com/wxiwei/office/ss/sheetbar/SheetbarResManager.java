@@ -8,6 +8,10 @@ package com.wxiwei.office.ss.sheetbar;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+
+import com.wxiwei.office.officereader.R;
 
 /**
  * TODO: 文件注释
@@ -32,57 +36,92 @@ public class SheetbarResManager
         this.context = context;
         
         ClassLoader loader = context.getClassLoader();
+        if(loader == null)
+        {
+            Log.d("Lantest","ClassLoader is null");
+        }
         //sheetbar background
-        sheetbarBG =  Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_BG), 
-            SheetbarResConstant.RESNAME_SHEETBAR_BG);
+//        sheetbarBG =  Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_BG),
+//            SheetbarResConstant.RESNAME_SHEETBAR_BG);
+        sheetbarBG = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_bg);
+        if(sheetbarBG == null)
+        {
+            Log.d("Lantest","sheetbarBG is null");
+        }
+        if(loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_BG)==null)
+        {
+            Log.d("Lantest","InputStream is null");
+        }
+        if(loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_LEFT)==null)
+        {
+            Log.d("Lantest","InputStream2 is null");
+        }
         
         //shadow
-        sheetbarLeftShadow= Drawable.createFromResourceStream(context.getResources(), null,
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_LEFT),
-            SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_LEFT);
+//        sheetbarLeftShadow= Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_LEFT),
+//            SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_LEFT);
+        sheetbarLeftShadow = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_shadow_left);
         
-        sheetbarRightShadow= Drawable.createFromResourceStream(context.getResources(), null,
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_RIGHT),
-            SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_RIGHT);
-        
+//        sheetbarRightShadow= Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_RIGHT),
+//            SheetbarResConstant.RESNAME_SHEETBAR_SHADOW_RIGHT);
+        sheetbarRightShadow = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_shadow_right);
+
         //hSeparator
-        hSeparator = Drawable.createFromResourceStream(context.getResources(), null,
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SEPARATOR_H),
-            SheetbarResConstant.RESNAME_SHEETBAR_SEPARATOR_H);
-            
+//        hSeparator = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBAR_SEPARATOR_H),
+//            SheetbarResConstant.RESNAME_SHEETBAR_SEPARATOR_H);
+        hSeparator = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_separated_horizontal);
+
         //normal state
-        normalLeft = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_LEFT), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_LEFT);        
-        normalRight = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_RIGHT), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_RIGHT);
-        normalMiddle = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_MIDDLE), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_MIDDLE);
-        
+//        normalLeft = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_LEFT),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_LEFT);
+        normalLeft = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_normal_left);
+
+//        normalRight = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_RIGHT),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_RIGHT);
+        normalRight = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_normal_right);
+
+//        normalMiddle = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_MIDDLE),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_NORMAL_MIDDLE);
+        normalMiddle = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_normal_middle);
+
         //push state
-        pushLeft = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_LEFT), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_LEFT);
-        pushMiddle = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_MIDDLE), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_MIDDLE);
-        pushRight = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_RIGHT), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_RIGHT);
+//        pushLeft = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_LEFT),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_LEFT);
+        pushLeft = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_push_left);
+
+//        pushMiddle = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_MIDDLE),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_MIDDLE);
+        pushMiddle = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_push_middle);
+
+//        pushRight = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_RIGHT),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_PUSH_RIGHT);
+        pushRight = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_push_right);
         
         //focus state
-        focusLeft = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_LEFT), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_LEFT);
-        focusMiddle = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_MIDDLE), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_MIDDLE);
-        focusRight = Drawable.createFromResourceStream(context.getResources(), null, 
-            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_RIGHT), 
-            SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_RIGHT);
+//        focusLeft = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_LEFT),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_LEFT);
+        focusLeft = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_focus_left);
+
+//        focusMiddle = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_MIDDLE),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_MIDDLE);
+        focusMiddle = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_focus_middle);
+
+//        focusRight = Drawable.createFromResourceStream(context.getResources(), null,
+//            loader.getResourceAsStream(SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_RIGHT),
+//            SheetbarResConstant.RESNAME_SHEETBUTTON_FOCUS_RIGHT);
+        focusRight = ContextCompat.getDrawable(context, R.drawable.ss_sheetbar_button_focus_right);
         
     }
     

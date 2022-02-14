@@ -44,7 +44,9 @@ public class SheetbarResConstant
     //resource path
     public static final String RESDIR = "com/wxiwei/office/res/icon/";
     //sheetbar resource
-    public static final String RESNAME_SHEETBAR_BG = "com/wxiwei/office/res/icon/ss_sheetbar_bg.png";    
+    public static final String RESNAME_SHEETBAR_BG = "com/wxiwei/office/res/icon/ss_sheetbar_bg.png";
+//    public static final String RESNAME_SHEETBAR_BG = "com/wxiwei/office/ss/sheetbar/ss_sheetbar_bg.png";
+//    public static final String RESNAME_SHEETBAR_BG = "res/drawable/ss_sheetbar_bg.png";
     public static final String RESNAME_SHEETBAR_SHADOW_LEFT = "com/wxiwei/office/res/icon/ss_sheetbar_shadow_left.png";
     public static final String RESNAME_SHEETBAR_SHADOW_RIGHT = "com/wxiwei/office/res/icon/ss_sheetbar_shadow_right.png";
     public static final String RESNAME_SHEETBAR_SEPARATOR_H = "com/wxiwei/office/res/icon/ss_sheetbar_separated_horizontal.png";

@@ -14,6 +14,7 @@ import com.wxiwei.office.system.IControl;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -92,6 +93,10 @@ public class SheetBar extends HorizontalScrollView implements OnClickListener
         sheetbarResManager = new SheetbarResManager(context);
      
         Drawable drawable = sheetbarResManager.getDrawable(SheetbarResConstant.RESID_SHEETBAR_BG);
+        if(drawable == null)
+        {
+            Log.d("Lantest","drawable is null");
+        }
         sheetbarFrame.setBackgroundDrawable(drawable);
         sheetbarFrame.setOrientation(LinearLayout.HORIZONTAL);
         sheetbarFrame.setMinimumWidth(minimumWidth == -1 ? getResources().getDisplayMetrics().widthPixels
