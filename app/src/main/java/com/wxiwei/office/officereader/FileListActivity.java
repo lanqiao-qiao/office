@@ -541,7 +541,7 @@ public class FileListActivity extends Activity implements ISearchResult
      */
     private void browseTo(File aDirectory)
     {
-        if (aDirectory.isDirectory())
+        if (aDirectory.isDirectory())  //检查是否是文件夹
         {
             currentDirectory = aDirectory;
             listFiles(aDirectory.listFiles());
@@ -551,7 +551,7 @@ public class FileListActivity extends Activity implements ISearchResult
             updateToolsbarStatus();
             
         }
-        else
+        else  //是一个文件？
         {
             if (FileKit.instance().isSupport(aDirectory.getName()))
             {

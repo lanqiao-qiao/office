@@ -83,7 +83,7 @@ public class FileItemView extends LinearLayout
         
         // 文件属性
         int propWidth = mWidth - iconWidth * 2 - GAP * 6;
-        int propHeight = iconHeight;
+        int propHeight = iconHeight+100;
         LinearLayout fileProp = new LinearLayout(context);
         fileProp.setOrientation(VERTICAL); 
         params.gravity = Gravity.CENTER_VERTICAL;        
@@ -104,6 +104,7 @@ public class FileItemView extends LinearLayout
         fileName.setSingleLine(true);
         fileName.setEllipsize(TextUtils.TruncateAt.END);
         fileName.setText(fileItem.getFileName());
+        fileName.setTextColor(Color.RED);
         params = new LayoutParams(propWidth - opts.outWidth - GAP * 2, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.LEFT;
         filePropTop.addView(fileName, params);
@@ -130,6 +131,7 @@ public class FileItemView extends LinearLayout
         fileCreateDate.setSingleLine(true);
         fileCreateDate.setEllipsize(TextUtils.TruncateAt.END);
         fileCreateDate.setText(fia.formatDate(fileItem.getFile().lastModified()));
+        fileCreateDate.setTextColor(Color.RED);
         params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.LEFT;
         filePropBotom.addView(fileCreateDate, params);

@@ -52,7 +52,7 @@ public class SysFrame extends LinearLayout
         super(context);
         setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        setBackgroundResource(R.drawable.sys_background);
+        setBackgroundResource(R.drawable.sys_background);  //设置背景
         this.control = control;
         initListener();
     }
