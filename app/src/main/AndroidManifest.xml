@@ -19,11 +19,11 @@
         <activity
             android:name=".SysActivity"
             android:label="@string/sys_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
             <intent-filter>
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -37,6 +37,16 @@
                 android:name="android.app.default_searchable"
                 android:value=".FileListActivity" />
         </activity>
+
+        <activity
+            android:name=".settings.OpenFileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".FileListActivity"
             android:configChanges="keyboardHidden|orientation"
