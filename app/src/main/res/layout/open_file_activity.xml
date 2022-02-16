@@ -8,24 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button1"
-        android:text="open DOC"/>
+        android:text="open DOC   /storage/emulated/0/DOC.doc"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button2"
-        android:text="open TXT"/>
+        android:text="open TXT  /storage/emulated/0/TXT.txt"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button3"
-        android:text="open EXCEL"/>
+        android:text="open EXCEL  /storage/emulated/0/EXCEL.xlsx"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button4"
-        android:text="open PPT"/>
+        android:text="open PPT  /storage/emulated/0/PPT.pptx"/>
 
 </LinearLayout>

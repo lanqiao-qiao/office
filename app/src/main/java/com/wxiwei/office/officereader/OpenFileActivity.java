@@ -1,8 +1,9 @@
-package com.wxiwei.office.officereader.settings;
+package com.wxiwei.office.officereader;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;

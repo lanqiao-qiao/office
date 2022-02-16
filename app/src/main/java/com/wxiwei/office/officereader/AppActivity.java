@@ -55,6 +55,7 @@ import android.os.Environment;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout.LayoutParams;
@@ -79,6 +80,54 @@ import android.widget.Toast;
 
 public class AppActivity extends Activity implements IMainFrame
 {
+    //
+    private boolean isDispose;
+    // 当前标星状态
+    private boolean marked;
+    //
+    private int applicationType = -1;
+    //
+    private String filePath;
+    // application activity control
+    private MainControl control;
+    //
+    private AppFrame appFrame;
+    //tool bar
+    private AToolsbar toolsbar;
+    //search bar
+    private FindToolBar searchBar;
+    //
+    private DBService dbService;
+    //
+    private SheetBar bottomBar;
+    //
+    private Toast toast;
+    //
+    private View gapView;
+
+    //float button: PageUp/PageDown
+    private WindowManager wm = null;
+    private WindowManager.LayoutParams wmParams = null;
+    private AImageButton pageUp;
+    private AImageButton pageDown;
+    private AImageCheckButton penButton;
+    private AImageCheckButton eraserButton;
+    private AImageButton settingsButton;
+
+    //whether write log to temporary file
+    private boolean writeLog = true;
+    //open file to get thumbnail, or not
+    private boolean isThumbnail;
+    //view background
+    private Object bg = Color.GRAY;
+    //
+    private CalloutToolsbar calloutBar;
+    //
+    private boolean fullscreen;
+    //
+    private String tempFilePath;
+
+
     /**
      * 构造器
      */
@@ -154,7 +203,7 @@ public class AppActivity extends Activity implements IMainFrame
 				
 			}
         });
-        setTheme(control.getSysKit().isVertical(this) ? R.style.title_background_vertical   : R.style.title_background_horizontal);
+//        setTheme(control.getSysKit().isVertical(this) ? R.style.title_background_vertical   : R.style.title_background_horizontal);
         setContentView(appFrame);
     }
     
@@ -465,7 +514,7 @@ public class AppActivity extends Activity implements IMainFrame
             toolsbar = new WPToolsbar(getApplicationContext(), control);
         }
         // 添加tool bar
-        appFrame.addView(toolsbar);
+//        appFrame.addView(toolsbar);
     }
 
     /**
@@ -900,7 +949,7 @@ public class AppActivity extends Activity implements IMainFrame
         //
         View app = control.getView();
         appFrame.addView(app,
-            new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         // 
         /*if (applicationType == MainConstant.APPLICATION_TYPE_SS)
         {
@@ -1393,50 +1442,4 @@ public class AppActivity extends Activity implements IMainFrame
         }
     }
 
-    //
-    private boolean isDispose;
-    // 当前标星状态
-    private boolean marked;
-    //
-    private int applicationType = -1;
-    //
-    private String filePath;
-    // application activity control
-    private MainControl control;
-    //
-    private AppFrame appFrame;
-    //tool bar
-    private AToolsbar toolsbar;
-    //search bar
-    private FindToolBar searchBar;
-    //
-    private DBService dbService;
-    //
-    private SheetBar bottomBar;
-    //
-    private Toast toast;
-    //
-    private View gapView;
-
-    //float button: PageUp/PageDown
-    private WindowManager wm = null;
-    private WindowManager.LayoutParams wmParams = null;
-    private AImageButton pageUp;
-    private AImageButton pageDown;
-    private AImageCheckButton penButton;
-    private AImageCheckButton eraserButton;
-    private AImageButton settingsButton;
-
-  //whether write log to temporary file
-    private boolean writeLog = true;
-    //open file to get thumbnail, or not
-    private boolean isThumbnail;
-    //view background
-    private Object bg = Color.GRAY;
-    //
-    private CalloutToolsbar calloutBar;
-    //
-    private boolean fullscreen;
-    //
-    private String tempFilePath;
 }

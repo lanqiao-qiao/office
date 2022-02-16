@@ -11,6 +11,7 @@ import com.wxiwei.office.system.AbstractControl;
 import com.wxiwei.office.system.SysKit;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -77,6 +78,7 @@ public class SysControl extends AbstractControl
      */
     public View getView()
     {
+        Log.d("LanWhichtxt","TXT?");
         return ((SysActivity)activity).getSysFrame();
     }
     /**

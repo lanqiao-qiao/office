@@ -39,7 +39,7 @@
         </activity>
 
         <activity
-            android:name=".settings.OpenFileActivity">
+            android:name=".OpenFileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

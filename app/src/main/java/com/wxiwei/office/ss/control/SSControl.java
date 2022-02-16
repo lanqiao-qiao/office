@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.ClipboardManager;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -428,6 +429,7 @@ public class SSControl extends AbstractControl
      */
     public View getView()
     {
+        Log.d("LanWhichtxt","excel");
         return excelView;
     }
 
