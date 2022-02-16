@@ -42,6 +42,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.ClipboardManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -558,6 +559,7 @@ public class FileListActivity extends Activity implements ISearchResult
                 Intent intent = new Intent();
                 intent.setClass(this, AppActivity.class);
                 intent.putExtra(MainConstant.INTENT_FILED_FILE_PATH, aDirectory.getAbsolutePath());
+                Log.d("LanAbsolutePath","FileListActivity browseTo else:  "+aDirectory.getAbsolutePath());
                 startActivityForResult(intent, RESULT_FIRST_USER);
             }
         }
