@@ -14,6 +14,7 @@ import com.wxiwei.office.constant.EventConstant;
 import com.wxiwei.office.constant.MainConstant;
 import com.wxiwei.office.constant.wp.WPViewConstant;
 import com.wxiwei.office.java.awt.Rectangle;
+import com.wxiwei.office.officereader.R;
 import com.wxiwei.office.pg.animate.FadeAnimation;
 import com.wxiwei.office.simpletext.control.Highlight;
 import com.wxiwei.office.simpletext.control.IHighlight;
@@ -41,7 +42,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -63,6 +66,53 @@ import android.widget.LinearLayout;
  */
 public class Word extends LinearLayout implements IWord
 {
+    private int preShowPageIndex = -1;
+    //
+    private int prePageCount = -1;
+    //
+    private boolean isExportImageAfterZoom;
+    //
+    private boolean initFinish;
+    // 当前显示的root类型
+    private int currentRootType;
+    //
+    protected int mWidth;
+    //
+    protected int mHeight;
+    //
+    protected float zoom = 1.f;
+    //
+    private float normalZoom = 1.f;
+    //
+    protected IControl control;
+    //
+    protected IDocument doc;
+    // status
+    protected StatusManage status;
+    //
+    protected IHighlight highlight;
+    // 事件管理
+    protected WPEventManage eventManage;
+    // 文件路径
+    private String filePath;
+    //
+    private IDialogAction dialogAction;
+    //
+    private PageRoot pageRoot;
+    //
+    private NormalRoot normalRoot;
+    //
+    private PrintWord printWord;
+    // 绘制器
+    private Paint paint;
+    //
+    private WPFind wpFind;
+    //
+    private Rectangle visibleRect;
+
+    private Context context;
+
+    public Rect seekRect;
 
     /**
      * 
@@ -84,6 +134,8 @@ public class Word extends LinearLayout implements IWord
 
         this.control = control;
         this.doc = doc;
+        this.context = context;
+        seekRect = new Rect();
         int defaultMode = control.getMainFrame().getWordDefaultView();
         setCurrentRootType(defaultMode);
         if (defaultMode == WPViewConstant.NORMAL_ROOT)
@@ -179,10 +231,13 @@ public class Word extends LinearLayout implements IWord
         }
         try
         {
+            Log.d("LangetScrollY","Word onDraw getScrollY():  "+getScrollY()+"  "+getHeight()+"  "+mHeight+"  ");
+            Log.d("LangetCurremtRootType","Word onDraw():  "+getCurrentRootType());
             if (getCurrentRootType() == WPViewConstant.PAGE_ROOT)
             {
                 pageRoot.draw(canvas, 0, 0, zoom);
                 drawPageNubmer(canvas, zoom);
+                drawRightNumber(canvas, zoom);
             }
             else if (getCurrentRootType() == WPViewConstant.NORMAL_ROOT)
             {
@@ -279,7 +334,7 @@ public class Word extends LinearLayout implements IWord
 
     /**
      * 
-     * @param destBitmap
+     * @param bitmap
      * @return
      */
     public Bitmap getSnapshot(Bitmap bitmap)
@@ -689,8 +744,7 @@ public class Word extends LinearLayout implements IWord
         {
             return printWord.getCurrentPageNumber();
         }
-        PageView pv = WPViewKit.instance().getPageView(pageRoot, (int)(getScrollX() / zoom),
-            (int)(getScrollY() / zoom) + getHeight() / 3);
+        PageView pv = WPViewKit.instance().getPageView(pageRoot, (int)(getScrollX() / zoom), (int)(getScrollY() / zoom) + getHeight() / 2);
         if (pv == null)
         {
             return 1;
@@ -736,6 +790,7 @@ public class Word extends LinearLayout implements IWord
         if (control.getMainFrame().isDrawPageNumber() && pageRoot != null)
         {
             Rect rect = canvas.getClipBounds();
+            Log.d("LanRect", "Word drawPageNumber:  "+rect.toString());
             if (rect.width() != getWidth()
                 || rect.height() != getHeight())
             {
@@ -749,8 +804,9 @@ public class Word extends LinearLayout implements IWord
             int x = (int)((rect.right + getScrollX() - w) / 2);
             int y = (int)((rect.bottom - h) - 20);
 
-            Drawable drawable = SysKit.getPageNubmerDrawable(); 
+            Drawable drawable = SysKit.getPageNubmerDrawable();  //设置出各角弧度为6的矩形
             drawable.setBounds((int)(x - 10), y - 10, x + w + 10, y + h + 10);
+            Log.d("LanPageNumberLocation","Word drawPageNumber() :"+(x-10)+"  "+(y-10)+"  "+(x+w+10)+"  "+(y+h+10));
             drawable.draw(canvas);
 
             y -= paint.ascent();
@@ -763,6 +819,30 @@ public class Word extends LinearLayout implements IWord
             preShowPageIndex = currentNumber;
             prePageCount = getPageCount();
         }
+    }
+
+    private void drawRightNumber(Canvas canvas, float zoom)
+    {
+        Log.d("LanTest",getHeight()+" "+getScrollY()+"  "+"  "+zoom+"  "+mHeight);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.default_scroll_handle_right);
+//        int y = getScrollY()/Math.max(1, mHeight - getHeight()) * getHeight() + getScrollY();
+        int y = (int) (getScrollY() +  (float)getScrollY() / (float)(mHeight*zoom - getHeight())  * (getHeight()-70));
+        drawable.setBounds(getRight()-100+getScrollX(), y, getRight()+getScrollX(), y+70);
+        seekRect.left = getRight()-100;
+        seekRect.top = (int) ((float)getScrollY() / (float)(mHeight*zoom - getHeight()) * getHeight());
+        seekRect.right = getRight();
+        seekRect.bottom = (int) ((float)getScrollY() / (float)(mHeight*zoom - getHeight()) * getHeight()) + 70;
+        Log.d("LanTest2",seekRect.toString()+"  "+getLeft()+"  "+getTop()+"  "+getRight()+"  "+getBottom());
+
+        drawable.draw(canvas);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setTypeface(Typeface.SANS_SERIF);
+        paint.setTextSize(48);
+        paint.setTextAlign(Paint.Align.LEFT);
+        String pn = String.valueOf(getCurrentPageNumber());
+        canvas.drawText(pn, (getRight()-100+getScrollX()+30), y+50, paint);
+        Log.d("LandrawRight","y:  "+y+"  "+(y - getScrollY())+"  ");
     }
 
     /**
@@ -897,7 +977,7 @@ public class Word extends LinearLayout implements IWord
     }
 
     /**
-     * @param wordWidth The wordWidth to set.
+     * @param mWidth The wordWidth to set.
      */
     public void setWordWidth(int mWidth)
     {
@@ -905,7 +985,7 @@ public class Word extends LinearLayout implements IWord
     }
 
     /**
-     * @param wordHeight The wordHeight to set.
+     * @param mHeight The wordHeight to set.
      */
     public void setWordHeight(int mHeight)
     {
@@ -917,6 +997,7 @@ public class Word extends LinearLayout implements IWord
      */
     public void setSize(int w, int h)
     {
+        Log.d("LanGetsetSize","Word setSize():  "+"w= "+w+"  h= "+h+"   ");
         mWidth = w;
         mHeight = h;
     }
@@ -958,7 +1039,7 @@ public class Word extends LinearLayout implements IWord
      * 
      * @param index     page index
      * 
-     * @param dircetion
+     * @param direction
      */
     protected void showPage(int index, int direction)
     {
@@ -1020,10 +1101,10 @@ public class Word extends LinearLayout implements IWord
     /**
      * specific area of page to image. if area is not completely contained in the page, return null
      * @param pageNumber page number
-     * @param x The x coordinate
-     * @param y The y coordinate
-     * @param width area width
-     * @param height area height
+     * @param srcLeft The x coordinate
+     * @param srcTop The y coordinate
+     * @param srcWidth area width
+     * @param srcHeight area height
      * @return
      */
     public Bitmap pageAreaToImage(int pageNumber, int srcLeft, int srcTop, int srcWidth, int srcHeight, int desWidth, int desHeight)
@@ -1211,7 +1292,7 @@ public class Word extends LinearLayout implements IWord
 
     /**
      * 
-     * @param para
+     * @param pargraphID
      * @return
      */
     public FadeAnimation getParagraphAnimation(int pargraphID)
@@ -1342,48 +1423,5 @@ public class Word extends LinearLayout implements IWord
         visibleRect = null;
     }
 
-    private int preShowPageIndex = -1;
-    //
-    private int prePageCount = -1;
-    //
-    private boolean isExportImageAfterZoom;
-    //
-    private boolean initFinish;
-    // 当前显示的root类型
-    private int currentRootType;
-    //
-    protected int mWidth;
-    //
-    protected int mHeight;
-    //
-    protected float zoom = 1.f;
-    //
-    private float normalZoom = 1.f;
-    //
-    protected IControl control;
-    //
-    protected IDocument doc;
-    // status
-    protected StatusManage status;
-    //
-    protected IHighlight highlight;
-    // 事件管理
-    protected WPEventManage eventManage;
-    // 文件路径
-    private String filePath;
-    //
-    private IDialogAction dialogAction;
-    //
-    private PageRoot pageRoot;
-    //
-    private NormalRoot normalRoot;
-    //
-    private PrintWord printWord;
-    // 绘制器
-    private Paint paint;
-    //
-    private WPFind wpFind;
-        //
-    private Rectangle visibleRect;
 
 }

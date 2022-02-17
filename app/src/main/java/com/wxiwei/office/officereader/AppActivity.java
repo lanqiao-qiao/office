@@ -49,9 +49,12 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -938,9 +941,10 @@ public class AppActivity extends Activity implements IMainFrame
     }
 
     /**
-     * 
+     *
+     * @param i
      */
-    public void openFileFinish()
+    public void openFileFinish(int i)
     {
         // 加一条与应用视图分隔的灰色线
         gapView = new View(getApplicationContext());
@@ -948,8 +952,19 @@ public class AppActivity extends Activity implements IMainFrame
         appFrame.addView(gapView, new LayoutParams(LayoutParams.MATCH_PARENT, 1));
         //
         View app = control.getView();
+        Log.d("Lanapp","AppActivity opneFileFinish():  "+app);
         appFrame.addView(app,
             new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        if(i==1)
+        {
+            Log.d("LanisWP","this is WP");
+//            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.default_scroll_handle_right);
+//            View v = new View(this);
+//            v.setBackgroundDrawable(drawable);
+//            Log.d("LanisWP","before:  "+appFrame.getChildCount());
+//            appFrame.addView(v, new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//            Log.d("LanisWP","after:  "+appFrame.getChildCount());
+        }
         // 
         /*if (applicationType == MainConstant.APPLICATION_TYPE_SS)
         {
@@ -1048,7 +1063,7 @@ public class AppActivity extends Activity implements IMainFrame
     public byte getWordDefaultView()
     {
         return WPViewConstant.PAGE_ROOT;
-        //return WPViewConstant.NORMAL_ROOT;
+//        return WPViewConstant.NORMAL_ROOT;
     }
 
     /**

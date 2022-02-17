@@ -358,7 +358,7 @@ public class PDFView extends FrameLayout implements IPageListViewListener
         if(listView != null)
         {
             pagesSize = pdfLib.getAllPagesSize();
-            control.getMainFrame().openFileFinish();
+            control.getMainFrame().openFileFinish(0);
             listView.init();
 
         }

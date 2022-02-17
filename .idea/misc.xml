@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/default_scroll_handle_right.xml" value="0.2828125" />
         <entry key="app/src/main/res/drawable/file_list_selector.xml" value="0.2828125" />
         <entry key="app/src/main/res/layout/file_item_view.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/open_file_activity.xml" value="0.49375" />

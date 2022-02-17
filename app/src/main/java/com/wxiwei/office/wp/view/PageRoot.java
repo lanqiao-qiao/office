@@ -43,7 +43,22 @@ import android.graphics.Canvas;
  */
 public class PageRoot extends AbstractView implements IRoot
 {
-        
+    // 文档的段落总数
+    private int paraCount;
+    // 是否可后台布局
+    private boolean canBackLayout;
+    // 后台布局线程
+    private LayoutThread layoutThread;
+    // 视图组件
+    private Word word;
+    //
+    private WPLayouter wpLayouter;
+    //
+    private ViewContainer viewContainer;
+    //
+    private List<PageView> pages;
+
+
     public PageRoot(Word word)
     {
         this.word = word;
@@ -338,19 +353,5 @@ public class PageRoot extends AbstractView implements IRoot
         }
         word = null;
     }
-    
-    // 文档的段落总数
-    private int paraCount;
-    // 是否可后台布局
-    private boolean canBackLayout;
-    // 后台布局线程
-    private LayoutThread layoutThread;
-    // 视图组件
-    private Word word;
-    //
-    private WPLayouter wpLayouter;
-    //
-    private ViewContainer viewContainer;
-    //
-    private List<PageView> pages;
+
 }

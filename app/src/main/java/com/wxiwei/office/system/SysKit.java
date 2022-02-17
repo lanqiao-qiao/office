@@ -196,7 +196,7 @@ public class SysKit
         if (pageNumberDrawable == null)
         {
             pageNumberDrawable = new ShapeDrawable(new RoundRectShape(new float[]{6, 6, 6, 6,
-                6, 6, 6, 6}, null, null));
+                6, 6, 6, 6}, null, null));  //外矩形弧度为6的矩形
             pageNumberDrawable.getPaint().setColor(0x88FF8844);
         }
         return pageNumberDrawable;

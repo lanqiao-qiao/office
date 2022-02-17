@@ -20,6 +20,7 @@ import com.wxiwei.office.system.IControl;
 import com.wxiwei.office.system.MainControl;
 import com.wxiwei.office.system.beans.AEventManage;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -40,10 +41,19 @@ import android.view.View;
  * <p>
  */
 public class WPEventManage extends AEventManage
-{    
+{
+    //
+    private int oldX;
+    //
+    private int oldY;
+    // word
+    protected Word word;
+    //
+    private boolean book =false;
+
     /**
      * 
-     * @param spreadsheet
+     *
      */
     public WPEventManage(Word word, IControl control)
     {
@@ -66,12 +76,25 @@ public class WPEventManage extends AEventManage
                 case MotionEvent.ACTION_DOWN:
                     PictureKit.instance().setDrawPictrue(true);
                     processDown(v, event);
+                    Log.d("LanTest2","WPEventManage onTouch:  "+event.getX()+"  "+event.getY());
+                    if(event.getX() > word.seekRect.left && event.getX() < word.seekRect.right &&
+                        event.getY() > word.seekRect.top-100 && event.getY() < word.seekRect.bottom+100)
+                    {
+                        book = true;
+                    }
                     break;
                     
                 case MotionEvent.ACTION_MOVE:
+                    if(book)
+                    {
+                        word.scrollTo(word.getScrollX(), (int) (event.getY()/(float) word.getHeight() * (word.mHeight * word.zoom-word.getHeight())) );
+                        Log.d("LanTest3",(event.getY()/(float) word.getHeight())+"  "+ word.mHeight);
+                        Log.d("LanTest3",word.getHeight()+"");
+                    }
                     break;
                     
                 case MotionEvent.ACTION_UP:
+                    book = false;
                     if (zoomChange)
                     {
                         zoomChange = false;
@@ -122,12 +145,14 @@ public class WPEventManage extends AEventManage
      * 
      *
      */
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)  //拖动只能单方向(不能斜向)
     {
         if (word.getStatus().isSelectTextStatus())
         {
             return true;
         }
+        if(book)
+            return true;
         super.onScroll(e1, e2, distanceX, distanceY);
         // 向右
         boolean change = false;
@@ -371,11 +396,5 @@ public class WPEventManage extends AEventManage
         super.dispose();
         word = null;
     }
-    
-    //
-    private int oldX;
-    //
-    private int oldY;
-    // word
-    protected Word word;
+
 }

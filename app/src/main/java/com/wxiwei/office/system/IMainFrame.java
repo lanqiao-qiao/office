@@ -73,8 +73,9 @@ public interface IMainFrame
     
     /**
      * reader file finish call this method
+     * @param i
      */
-    public void openFileFinish();
+    public void openFileFinish(int i);
     
     /**
      * update tool bar status

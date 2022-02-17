@@ -76,7 +76,7 @@ public class MainControl extends AbstractControl
         // listener
         initListener();
         //
-        toast = Toast.makeText(getActivity().getApplicationContext(), "", 0);
+        toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_SHORT);
         
         // 自动测试
         Intent intent = getActivity().getIntent();
@@ -288,12 +288,18 @@ public class MainControl extends AbstractControl
                         frame.openFileFinish();
                     }
                 });*/
-                frame.openFileFinish();
+                if(applicationType == MainConstant.APPLICATION_TYPE_WP)
+                    frame.openFileFinish(1);
+                else
+                    frame.openFileFinish(0);
             }
         }
         else
         {
-            frame.openFileFinish(); 
+            if(applicationType == MainConstant.APPLICATION_TYPE_WP)
+                frame.openFileFinish(1);
+            else
+                frame.openFileFinish(0);
         }
         
         PictureKit.instance().setDrawPictrue(true);
