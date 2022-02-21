@@ -78,7 +78,7 @@ public class WPEventManage extends AEventManage
                     processDown(v, event);
                     Log.d("LanTest2","WPEventManage onTouch:  "+event.getX()+"  "+event.getY());
                     if(event.getX() > word.seekRect.left && event.getX() < word.seekRect.right &&
-                        event.getY() > word.seekRect.top-100 && event.getY() < word.seekRect.bottom+100)
+                        event.getY() > word.seekRect.top-100 && event.getY() < word.seekRect.bottom+100)  //如果在矩形框内，则标记
                     {
                         book = true;
                     }

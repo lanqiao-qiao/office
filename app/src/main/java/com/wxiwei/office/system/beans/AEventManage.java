@@ -14,6 +14,7 @@ import com.wxiwei.office.system.IMainFrame;
 import com.wxiwei.office.system.MainControl;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
@@ -104,7 +105,8 @@ public abstract class AEventManage implements OnTouchListener,
                 		final VelocityTracker velocityTracker = mVelocityTracker;
                         velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
                         int initialYVelocity = (int)velocityTracker.getYVelocity(mActivePointerId);
-                        int initialXVelocity = (int)velocityTracker.getXVelocity(mActivePointerId);
+                        int initialXVelocity = (int)velocityTracker.getXVelocity(mActivePointerId);  //xy的速度
+                        Log.d("LanTouchEvent","AEventManage:  "+initialXVelocity+"  "+initialYVelocity);
                         if (Math.abs(initialYVelocity) > mMinimumVelocity
                             || Math.abs(initialXVelocity) > mMinimumVelocity)
                         {

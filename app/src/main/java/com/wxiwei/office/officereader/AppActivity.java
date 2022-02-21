@@ -955,6 +955,7 @@ public class AppActivity extends Activity implements IMainFrame
         Log.d("Lanapp","AppActivity opneFileFinish():  "+app);
         appFrame.addView(app,
             new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//            new LayoutParams(LayoutParams.MATCH_PARENT, ));
         if(i==1)
         {
             Log.d("LanisWP","this is WP");

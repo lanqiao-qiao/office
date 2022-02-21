@@ -48,7 +48,25 @@ import android.view.View;
  * <p>
  */
 public class SlideShowView
-{   
+{
+    private Paint paint;
+    private Rect bgRect;
+    //
+    private Presentation presentation;
+    //
+    private PGSlide slide;
+
+    //slideshow
+    private int slideshowStep =  0;
+    //
+    private AnimationManager animationMgr;
+    //shapeid, subshape id/paragraph id, visible
+    private Map<Integer, Map<Integer, IAnimation>> shapeVisible;
+    //invalidate area
+    private Rect animShapeArea;
+    private IAnimation pageAnimation;
+    private int animDuration = Animation.Duration;
+
     /**
      * 
      * @param presentation
@@ -558,22 +576,5 @@ public class SlideShowView
             shapeVisible = null;
         }
     }
-    
-    private Paint paint;
-    private Rect bgRect;
-    // 
-    private Presentation presentation;
-    //
-    private PGSlide slide;
-    
-    //slideshow
-    private int slideshowStep =  0;
-    //
-    private AnimationManager animationMgr;
-    //shapeid, subshape id/paragraph id, visible
-    private Map<Integer, Map<Integer, IAnimation>> shapeVisible; 
-    //invalidate area
-    private Rect animShapeArea;
-    private IAnimation pageAnimation;
-    private int animDuration = Animation.Duration;
+
 }

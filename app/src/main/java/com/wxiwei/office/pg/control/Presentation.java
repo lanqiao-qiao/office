@@ -34,6 +34,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -56,6 +57,49 @@ import android.widget.FrameLayout;
  */
 public class Presentation extends FrameLayout implements IFind, IExportListener
 {
+    //
+    private boolean isConfigurationChanged;
+    //
+    private boolean init;
+    //
+    private int preShowSlideIndex = -1;
+    // 当前显示的slide index值
+    private int currentIndex = -1;
+    // 组件的宽度
+    private int mWidth;
+    // 组件的高度
+    private int mHeight;
+    //current zoom value
+    private float zoom = 1F;
+    //
+    private PGFind pgFind;
+    //
+    //private ViewGroup.LayoutParams layoutParams;
+    //
+    private PGEditor editor;
+    //
+    private IControl control;
+    //
+    private PGSlide currentSlide;
+    // PG model 后期需修改
+    private PGModel pgModel;
+    //
+    private SlideShowView slideView;
+    //
+    private PGEventManage eventManage;
+
+    //
+    private boolean slideshow;
+    private int slideIndex_SlideShow;
+    private float fitZoom = 1f;
+    private Rect slideSize = null;
+
+    /**
+     *
+     */
+    private PGPrintMode pgPrintMode;
+    private CalloutView callouts;
+
     /**
      * 
      */
@@ -65,6 +109,7 @@ public class Presentation extends FrameLayout implements IFind, IExportListener
         this.control = control;
         this.pgModel = pgModel;
         setLongClickable(true);
+        Log.d("LanPresentation","Presentation Construct");
         
         pgFind = new PGFind(this);
         //
@@ -73,6 +118,7 @@ public class Presentation extends FrameLayout implements IFind, IExportListener
         pgPrintMode = new PGPrintMode(activity, control, pgModel, editor);
         //
         addView(pgPrintMode);
+        Log.d("LanPresentation","Presentation:  "+pgPrintMode.getWidth()+"  "+pgPrintMode.getHeight());
     }
     
     public void initCalloutView()
@@ -274,13 +320,17 @@ public class Presentation extends FrameLayout implements IFind, IExportListener
      */
     protected void onDraw(Canvas canvas)
     {
+        Log.d("LanPresentation","Presentation onDraw():  "+"Do it?");
+        Log.d("LanPresentation","Presentation:  "+pgPrintMode.getWidth()+"  "+pgPrintMode.getHeight());
+//        slideshow = true;
         if (!init || !slideshow)
         {
             return;
         }
         try
         {
-            slideView.drawSlide(canvas, fitZoom, callouts);
+            Log.d("LanPresentation","Presentation onDraw() try:  "+"Do it?");
+//            slideView.drawSlide(canvas, fitZoom, callouts);
             // auto test code
             if (control.isAutoTest())
             {
@@ -849,6 +899,7 @@ public class Presentation extends FrameLayout implements IFind, IExportListener
             if(eventManage == null)
             {
                 eventManage = new PGEventManage(this, control);
+                Log.d("LanTouchEvent","set eventManage");
             }
             
             boolean isChangedSlide = false;
@@ -1284,46 +1335,4 @@ public class Presentation extends FrameLayout implements IFind, IExportListener
         }
     }
 
-    // 
-    private boolean isConfigurationChanged;
-    //
-    private boolean init;
-    //
-    private int preShowSlideIndex = -1;
-    // 当前显示的slide index值
-    private int currentIndex = -1;
-    // 组件的宽度
-    private int mWidth;
-    // 组件的高度
-    private int mHeight;
-    //current zoom value
-    private float zoom = 1F;
-    //
-    private PGFind pgFind;
-    //
-    //private ViewGroup.LayoutParams layoutParams;
-    //
-    private PGEditor editor;
-    //  
-    private IControl control;
-    //
-    private PGSlide currentSlide;
-    // PG model 后期需修改
-    private PGModel pgModel;
-    //
-    private SlideShowView slideView;
-    //
-    private PGEventManage eventManage;
-    
-    //
-    private boolean slideshow;
-    private int slideIndex_SlideShow;
-    private float fitZoom = 1f;
-    private Rect slideSize = null;
-    
-    /**
-     * 
-     */
-    private PGPrintMode pgPrintMode;
-    private CalloutView callouts;
 }

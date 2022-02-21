@@ -55,7 +55,7 @@ public class APageListEventManage implements
     
     /**
      * 
-     * @param pdfListView
+     * @param listView
      */
     public APageListEventManage(APageListView listView)
     {
@@ -68,7 +68,7 @@ public class APageListEventManage implements
 
     /**
      * 
-     * @see com.wxiwei.office.system.beans.AEventManage#zoom(android.view.MotionEvent)
+     * @see com.wxiwei.office.system.beans.AEventManage#(android.view.MotionEvent)
      *
      */
     protected boolean zoom(MotionEvent event)
@@ -278,6 +278,7 @@ public class APageListEventManage implements
                     }
                 }
             }
+//            mXScroll = -1000;
             listView.requestLayout();
         }
         return true;
@@ -455,7 +456,7 @@ public class APageListEventManage implements
     
     /**
      * 
-     * @param v
+     * @param pageItem
      */
     protected void slideViewOntoScreen(APageListItem pageItem)
     {

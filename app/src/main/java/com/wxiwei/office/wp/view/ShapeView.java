@@ -37,6 +37,7 @@ import com.wxiwei.office.thirdpart.achartengine.chart.AbstractChart;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * TODO: 文件注释
@@ -319,6 +320,7 @@ public class ShapeView extends LeafView
                     
                     int mainBodyWidth = pageAttr.pageWidth - pageAttr.leftMargin - pageAttr.rightMargin;
                     int mainBodyHeight = pageAttr.pageHeight - pageAttr.topMargin - pageAttr.bottomMargin;
+                    Log.d("LanTextBodySize","ShapeView drawForWrap() if:  "+mainBodyWidth+"  "+mainBodyHeight);
                     
                     float centerX = originX + (pageAttr.leftMargin + mainBodyWidth / 2f) * zoom;
                     float centerY = originY + (pageAttr.topMargin + mainBodyHeight / 2f) * zoom;

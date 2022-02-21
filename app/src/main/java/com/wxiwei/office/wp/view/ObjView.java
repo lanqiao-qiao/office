@@ -25,6 +25,7 @@ import com.wxiwei.office.system.IControl;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Embedded picture view
@@ -203,6 +204,7 @@ public class ObjView extends LeafView
     	{
     		int mainBodyWidth = pageAttr.pageWidth - pageAttr.leftMargin - pageAttr.rightMargin;
             int mainBodyHeight = pageAttr.pageHeight - pageAttr.topMargin - pageAttr.bottomMargin;
+            Log.d("LanTextBodySize","ObjView drawForWrap() if:  "+mainBodyWidth+"  "+mainBodyHeight);
             
             float centerX = originX + (pageAttr.leftMargin + mainBodyWidth / 2f) * zoom;
             float centerY = originY + (pageAttr.topMargin + mainBodyHeight / 2f) * zoom;

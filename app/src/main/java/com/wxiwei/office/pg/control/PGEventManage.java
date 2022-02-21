@@ -12,6 +12,7 @@ import com.wxiwei.office.system.beans.AEventManage;
 import com.wxiwei.office.system.beans.ATimer;
 
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -51,7 +52,9 @@ public class PGEventManage extends AEventManage
      */
     public boolean onTouch(View v, MotionEvent event)
     {
-        super.onTouch(v, event);                
+        Log.d("LanTouchEvent","On Touch 1");
+        super.onTouch(v, event);
+        Log.d("LanTouchEvent","On Touch 2");
         return false;
     }
     
@@ -87,7 +90,7 @@ public class PGEventManage extends AEventManage
     {
         if(presentation.isSlideShow())
         {          
-            if (Math.abs(velocityY) < 400 &&   Math.abs(velocityX) < 400)
+            if (Math.abs(velocityY) < 400 && Math.abs(velocityX) < 400)
             {
                 presentation.slideShow(ISlideShow.SlideShow_NextStep);
                 return;

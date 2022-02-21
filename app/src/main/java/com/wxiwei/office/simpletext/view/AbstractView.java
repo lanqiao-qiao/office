@@ -17,6 +17,7 @@ import com.wxiwei.office.system.IControl;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * 视图实现的抽象类
@@ -558,8 +559,11 @@ public abstract class AbstractView implements IView
     {
         int dX = (int)(x * zoom) + originX;
         int dY = (int)(y * zoom) + originY;
+//        Log.d("LanWordonDraw","2.01");
         IView view = getChildView();
+//        Log.d("LanWordonDraw","2.02");
         Rect clip = canvas.getClipBounds();
+//        Log.d("LanWordonDraw","2.03");
         while (view != null)
         {
             if (view.intersection(clip, dX, dY, zoom))
@@ -567,8 +571,9 @@ public abstract class AbstractView implements IView
                 view.draw(canvas, dX, dY, zoom);
             }
             view = view.getNextView();
+//            Log.d("LanWordonDraw","2.0333333");
         }
-        
+//        Log.d("LanWordonDraw","2.04");
     }
 
     public void getLineHeight(List<Integer> linesHeight)

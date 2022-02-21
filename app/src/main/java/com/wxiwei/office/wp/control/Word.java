@@ -82,6 +82,8 @@ public class Word extends LinearLayout implements IWord
     //
     protected float zoom = 1.f;
     //
+    protected float littleZoom = 1f;
+    //
     private float normalZoom = 1.f;
     //
     protected IControl control;
@@ -225,23 +227,41 @@ public class Word extends LinearLayout implements IWord
      */
     public void onDraw(Canvas canvas)
     {
+        Log.d("LanWordonDraw","---------------");
+        Log.d("LanWordonDraw","onDraw() start");
         if (!initFinish || currentRootType == WPViewConstant.PRINT_ROOT)
         {
             return;
         }
         try
         {
+            Log.d("LanAllView","---------------");
             Log.d("LangetScrollY","Word onDraw getScrollY():  "+getScrollY()+"  "+getHeight()+"  "+mHeight+"  ");
             Log.d("LangetCurremtRootType","Word onDraw():  "+getCurrentRootType());
+
+            PageView view = (PageView) pageRoot.getChildView();
+            Log.d("LanWordonDraw","1");
+            while (view!=null)
+            {
+                Log.d("LanAllView",view.getPageNumber()+"  "+view.getY());
+                view = (PageView) view.getNextView();
+            }
+            Log.d("LanAllView","now Screen middle:  "+( (getScrollY() / zoom) + getHeight() / 2 /zoom));
+            Log.d("LanWordonDraw","2");
+
             if (getCurrentRootType() == WPViewConstant.PAGE_ROOT)
             {
                 pageRoot.draw(canvas, 0, 0, zoom);
+                Log.d("LanWordonDraw","2.1");
                 drawPageNubmer(canvas, zoom);
+                Log.d("LanWordonDraw","2.2");
                 drawRightNumber(canvas, zoom);
+                Log.d("LanWordonDraw","3");
             }
             else if (getCurrentRootType() == WPViewConstant.NORMAL_ROOT)
             {
                 normalRoot.draw(canvas, 0, 0, normalZoom);
+                Log.d("LanWordonDraw","4");
             }
             // to picture
             IOfficeToPicture otp = control.getOfficeToPicture();
@@ -249,11 +269,14 @@ public class Word extends LinearLayout implements IWord
             {
                 toPicture(otp);
             }
+            Log.d("LanWordonDraw","5");
         }
         catch(Exception e)
         {
             control.getSysKit().getErrorKit().writerLog(e);
         }
+        Log.d("LanWordonDraw","onDraw() end");
+        Log.d("LanWordonDraw","---------------");
     }
 
     /**
@@ -744,7 +767,7 @@ public class Word extends LinearLayout implements IWord
         {
             return printWord.getCurrentPageNumber();
         }
-        PageView pv = WPViewKit.instance().getPageView(pageRoot, (int)(getScrollX() / zoom), (int)(getScrollY() / zoom) + getHeight() / 2);
+        PageView pv = WPViewKit.instance().getPageView(pageRoot, (int)(getScrollX() / zoom), (int)(getScrollY() / zoom) + (int)(getHeight() / 2 /zoom));
         if (pv == null)
         {
             return 1;
@@ -824,18 +847,18 @@ public class Word extends LinearLayout implements IWord
     private void drawRightNumber(Canvas canvas, float zoom)
     {
         Log.d("LanTest",getHeight()+" "+getScrollY()+"  "+"  "+zoom+"  "+mHeight);
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.default_scroll_handle_right);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.default_scroll_handle_right);  //加载样式
 //        int y = getScrollY()/Math.max(1, mHeight - getHeight()) * getHeight() + getScrollY();
-        int y = (int) (getScrollY() +  (float)getScrollY() / (float)(mHeight*zoom - getHeight())  * (getHeight()-70));
-        drawable.setBounds(getRight()-100+getScrollX(), y, getRight()+getScrollX(), y+70);
+        int y = (int) (getScrollY() +  (float)getScrollY() / (float)(mHeight*zoom - getHeight())  * (getHeight()-70));  //计算纵向位置
+        drawable.setBounds(getRight()-100+getScrollX(), y, getRight()+getScrollX(), y+70);  //设置位置
         seekRect.left = getRight()-100;
         seekRect.top = (int) ((float)getScrollY() / (float)(mHeight*zoom - getHeight()) * getHeight());
         seekRect.right = getRight();
         seekRect.bottom = (int) ((float)getScrollY() / (float)(mHeight*zoom - getHeight()) * getHeight()) + 70;
         Log.d("LanTest2",seekRect.toString()+"  "+getLeft()+"  "+getTop()+"  "+getRight()+"  "+getBottom());
 
-        drawable.draw(canvas);
-        Paint paint = new Paint();
+        drawable.draw(canvas);  //画上去
+        Paint paint = new Paint();  //画数字
         paint.setAntiAlias(true);
         paint.setTypeface(Typeface.SANS_SERIF);
         paint.setTextSize(48);

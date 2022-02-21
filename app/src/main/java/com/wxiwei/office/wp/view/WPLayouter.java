@@ -6,6 +6,8 @@
  */
 package com.wxiwei.office.wp.view;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,8 +86,10 @@ public class WPLayouter
     	
         layoutHeaderAndFooter(pageView);
         int breakType = WPViewConstant.BREAK_NO;
-        pageView.setSize(pageAttr.pageWidth, pageAttr.pageHeight);
-        pageView.setIndent(pageAttr.leftMargin, pageAttr.topMargin, pageAttr.rightMargin, pageAttr.bottomMargin);
+        pageView.setSize(pageAttr.pageWidth, pageAttr.pageHeight);  //这个范围只是文字背景(就是word下的纸)的大小，并不会改变文字布局范围
+//        pageView.setSize(1000, 1500);
+        Log.d("LanpageSize","WPLayouter layoutPage:  "+"pageView.size:  "+pageView.getPageNumber()+"  "+pageAttr.pageWidth+"  "+pageAttr.pageHeight);
+        pageView.setIndent(pageAttr.leftMargin, pageAttr.topMargin, pageAttr.rightMargin, pageAttr.bottomMargin);  //设置页面边距
         pageView.setStartOffset(currentLayoutOffset);
         
         int dx = pageAttr.leftMargin;

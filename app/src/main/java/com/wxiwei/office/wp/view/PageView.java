@@ -24,6 +24,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * 页面视图
@@ -65,8 +66,8 @@ public class PageView extends AbstractView
     /**
      * 
      * @param canvas
-     * @param x
-     * @param y
+     * @param originX
+     * @param originY
      * @param zoom
      */
     public void draw(Canvas canvas, int originX, int originY, float zoom)
@@ -78,13 +79,13 @@ public class PageView extends AbstractView
         canvas.clipRect(dX, dY, dX + getWidth() * zoom, dY + getHeight() * zoom);
         
         // draw background
-        drawBackground(canvas, dX, dY, zoom);
+        drawBackground(canvas, dX, dY, zoom);  //白色背景
         // draw border
-        drawBorder(canvas, dX, dY, zoom);
+        drawBorder(canvas, dX, dY, zoom);  //也是纸的边框
         // draw paper
-        drawPaper(canvas, dX, dY, zoom);
+        drawPaper(canvas, dX, dY, zoom);  //纸的边框
         // Separated
-        drawPageSeparated(canvas, dX, dY, zoom);
+        drawPageSeparated(canvas, dX, dY, zoom);  //绘制四角的分页符|_ _|
         
         if (header != null)
         {
@@ -111,8 +112,8 @@ public class PageView extends AbstractView
     /**
      * 
      * @param canvas
-     * @param x
-     * @param y
+     * @param originX
+     * @param originY
      * @param zoom
      */
     public void drawForPrintMode(Canvas canvas, int originX, int originY, float zoom)
@@ -147,8 +148,8 @@ public class PageView extends AbstractView
     /**
      * 
      * @param canvas
-     * @param x
-     * @param y
+     * @param originX
+     * @param originY
      * @param zoom
      */
     public void drawToImage(Canvas canvas, int originX, int originY, float zoom)
@@ -214,6 +215,8 @@ public class PageView extends AbstractView
         // draw page border
         if (pageBorder >= 0)
         {
+            Log.d("LanDrawBorder","PageView drawBorder");
+//            paint.setStrokeWidth(80);
             int w = (int)(getWidth() * zoom);
             int h = (int)(getHeight() * zoom);
             Borders bs = getControl().getSysKit().getBordersManage().getBorders(pageBorder);
@@ -267,6 +270,7 @@ public class PageView extends AbstractView
                 }
             }                
             paint.setColor(old);
+//            paint.setStrokeWidth(2);
         }
     }    
     
@@ -275,6 +279,7 @@ public class PageView extends AbstractView
      */
     private void drawPaper(Canvas canvas, int dx, int dy, float zoom)
     {
+//        paint.setStrokeWidth(40);
         canvas.save();
         int w = (int)(getWidth() * zoom);
         int h = (int)(getHeight() * zoom);
@@ -291,6 +296,7 @@ public class PageView extends AbstractView
         canvas.drawLine(dx, dy + h, dx + w, dy + h, paint);
         
         canvas.restore();
+//        paint.setStrokeWidth(2);
     }    
 
     /**
@@ -328,20 +334,24 @@ public class PageView extends AbstractView
     {
         if (shapeViews == null || shapeViews.size() == 0)
         {
+            Log.d("LanTest5","0");
             return;
         }
         
         if(drawBehindDocShape)
         {
+            Log.d("LanTest5","1");
             //behind doc
             for (LeafView shape : shapeViews)
             {
                 if(shape instanceof ShapeView && ((ShapeView)shape).isBehindDoc())
                 {
+                    Log.d("LanTest5","2");
                 	((ShapeView)shape).drawForWrap(canvas, originX, originY, zoom);                 
                 }
                 else if(shape instanceof ObjView && ((ObjView)shape).isBehindDoc())
                 {
+                    Log.d("LanTest5","3");
                     ((ObjView)shape).drawForWrap(canvas, originX, originY, zoom);
                 }
             }
@@ -352,10 +362,12 @@ public class PageView extends AbstractView
             {
                 if(shape instanceof ShapeView && !((ShapeView)shape).isBehindDoc())
                 {
+                    Log.d("LanTest5","4");
                     ((ShapeView)shape).drawForWrap(canvas, originX, originY, zoom);
                 }
                 else if(shape instanceof ObjView && !((ObjView)shape).isBehindDoc())
                 {
+                    Log.d("LanTest5","5");
                     ((ObjView)shape).drawForWrap(canvas, originX, originY, zoom);
                 }
             }
@@ -616,6 +628,6 @@ public class PageView extends AbstractView
     private TitleView header;
     // footer
     private TitleView footer;
-    //autoshape view and picture view
+    //autoshape view and picture view  PageView上的图片和文字
     private List<LeafView> shapeViews;
 }

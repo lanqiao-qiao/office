@@ -24,6 +24,7 @@ import com.wxiwei.office.simpletext.view.ViewKit;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 /**
  * word Leaf 视图
@@ -63,6 +64,7 @@ public class LeafView extends AbstractView/* implements IMemObj*/
     {
         this.elem = elem;
         initProperty(elem, paraElem);
+        Log.d("LanLeafView","LeafView Construct");
     }
     
     /**
@@ -204,7 +206,7 @@ public class LeafView extends AbstractView/* implements IMemObj*/
     /**
      * 得到指定结束位置字符宽度
      * 
-     * @param maxEnd
+     * @param
      * @return
      */
     public float getTextWidth()
@@ -282,8 +284,8 @@ public class LeafView extends AbstractView/* implements IMemObj*/
     /**
      * 
      * @param canvas
-     * @param x
-     * @param y
+     * @param originX
+     * @param originY
      * @param zoom
      */
     public synchronized void draw(Canvas canvas, int originX, int originY, float zoom)
@@ -316,9 +318,11 @@ public class LeafView extends AbstractView/* implements IMemObj*/
             dY -= (int)Math.ceil((paint.descent() - paint.ascent()));
         }
         // 绘制文本
-        String text = elem.getText(null);
+        String text = elem.getText(null);  //
+//        Log.d("LanwhatText","LanLeafView draw:  "+text);
         int s = (int)(start - elem.getStartOffset());
-        int e = (int)(end - elem.getStartOffset());
+        int e = (int)(end - elem.getStartOffset());  //像是文字的绘制高度
+//        Log.d("LanLeafView","LeafView:  "+s+"  "+e);
         
         boolean adjustFieldText = false;
         //total pages
@@ -431,7 +435,10 @@ public class LeafView extends AbstractView/* implements IMemObj*/
                 }
                 skip++;
             }
+//            float f = paint.getTextSize();
+//            paint.setTextSize(f*2);
             canvas.drawText(text, i, i + 1 + skip, drawX, drawY, paint);
+//            paint.setTextSize(f);
             drawX += widths[i] - extX;
             i += skip;
         }
